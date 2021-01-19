@@ -1,0 +1,30 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">%%modelName%% {{ $%%crudNameSingular%%->%%primaryKey%% }}</div>
+                    <div class="card-body">
+
+                        <a href="{{ url('/%%routeGroup%%%%viewName%%') }}" title="Retour" style="float: right;"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Retour</button></a>
+                        <a href="{{ url('/%%routeGroup%%%%viewName%%/' . $%%crudNameSingular%%->%%primaryKey%% . '/edit') }}" title="Modifier %%modelName%%"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier</button></a>
+                        <br/>
+                        <br/>
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    %%formBodyHtmlForShowView%%
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

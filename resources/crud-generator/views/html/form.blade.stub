@@ -1,0 +1,5 @@
+%%formFieldsHtml%%
+
+<div class="form-group" align="center">
+    <input class="btn btn-primary col-md-6" type="submit" value="{{ $formMode === 'edit' ? 'Modifier' : 'Ajouter' }}">
+</div>
