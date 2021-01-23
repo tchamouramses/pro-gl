@@ -17,7 +17,8 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <tbody>
-                                    <tr><th> Email </th><td> {{ $user->email }} </td></tr><tr><th> Password </th><td> {{ $user->password }} </td></tr><tr><th> Profil </th><td> {{ $user->profil }} </td></tr>
+                                    <tr><th> Profil </th><td> {{ $user->profil }} </td></tr>
+                                    <tr><th> Nom </th><td> {{ $user->name }} </td></tr><tr><th> Email </th><td> {{ $user->email }} </td></tr>
                                 </tbody>
                             </table>
                         </div>

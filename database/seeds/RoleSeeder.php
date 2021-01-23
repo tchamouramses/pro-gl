@@ -40,12 +40,14 @@ class RoleSeeder extends Seeder
         $permission3 = Permission::whereName('periode-academique')->first();
         $permission2 = Permission::whereName('statistique-etablissement')->first();
         $permission4 = Permission::whereName('organisme')->first();
+        $permission5 = Permission::whereName('etudiant')->first();
 
         $role1->attachPermission($permission);
         $role1->attachPermission($permission1);
         $role1->attachPermission($permission2);
         $role1->attachPermission($permission3);
         $role1->attachPermission($permission4);
+        $role1->attachPermission($permission5);
 
 
 
@@ -70,13 +72,11 @@ class RoleSeeder extends Seeder
         $role3->description = "a tous les pouvoirs sur l'application";
         $role3->save();
 
-        $permission = Permission::whereName('etudiant')->first();
         $permission1 = Permission::whereName('group')->first();
         $permission2 = Permission::whereName('categorie-donnee')->first();
         $permission3 = Permission::whereName('donnee')->first();
-        $permissio4 = Permission::whereName('postuler')->first();
+        $permission4 = Permission::whereName('postuler')->first();
 
-        $role3->attachPermission($permission);
         $role3->attachPermission($permission1);
         $role3->attachPermission($permission2);
         $role3->attachPermission($permission3);

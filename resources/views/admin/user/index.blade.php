@@ -29,13 +29,14 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Email</th><th>Password</th><th>Profil</th><th>Actions</th>
+                                        <th>Profil</th><th>Nom</th><th>Email</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($user as $item)
                                     <tr>
-                                        <td>{{ $item->email }}</td><td>{{ $item->password }}</td><td>{{ $item->profil }}</td>
+                                        <td>{{ $item->profil }}</td>
+                                        <td>{{ $item->name }}</td><td>{{ $item->email }}</td>
                                         <td>
                                             <a href="{{ url('/admin/user/' . $item->id) }}" title="Details User"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                             

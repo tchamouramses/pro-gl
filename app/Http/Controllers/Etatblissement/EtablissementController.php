@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Etablissement;
 use App\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class EtablissementController extends Controller
@@ -66,7 +67,8 @@ class EtablissementController extends Controller
 			'administrateur' => 'required'
 		]);
         $requestData = $request->all();
-        
+        $user = User::findOrFail($requestData['administrateur']);
+        $user->attachRole(Role::whereName('etablissement')->first());
         Etablissement::create($requestData);
         return redirect('admin/etablissement')->with('flash_message', 'Etablissement  Ajouté Avec Succes!');
     }
@@ -112,15 +114,13 @@ class EtablissementController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-			'nom' => 'required',
-			'ville' => 'required',
-			'administrateur' => 'required'
+			'nom' => 'required'
 		]);
         $requestData = $request->all();
         
         $etablissement = Etablissement::findOrFail($id);
-        $etablissement->update($requestData);
-
+        $etablissement->nom = $requestData->nom;
+        $etablissement->update();
         return redirect('admin/etablissement')->with('flash_message', 'Etablissement Modifier Avec succes!');
     }
 

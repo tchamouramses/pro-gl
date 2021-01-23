@@ -9,6 +9,7 @@ use App\Models\Entreprise;
 use Illuminate\Http\Request;
 use App\Assistan\Story;
 use App\User;
+use App\Models\Role;
 
 class EntrepriseController extends Controller
 {
@@ -81,6 +82,8 @@ class EntrepriseController extends Controller
                 ->store('uploads', 'public');
         }
 
+        $user = User::findOrFail($requestData['administrateur']);
+        $user->attachRole(Role::whereName('entreprise')->first());
         Entreprise::create($requestData);
         return redirect('admin/entreprise')->with('flash_message', 'Entreprise  Ajouté Avec Succes!');
     }

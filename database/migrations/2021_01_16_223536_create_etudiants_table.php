@@ -18,7 +18,7 @@ class CreateEtudiantsTable extends Migration
             $table->string('nom')->nullable();
             $table->string('prenom')->nullable();
             $table->date('date_nais')->nullable();
-            $table->date('lieu_nais')->nullable();
+            $table->string('lieu_nais')->nullable();
             $table->string('matricule')->unique();
             $table->integer('utilisateur')->unsigned();
             $table->integer('niveau')->unsigned();

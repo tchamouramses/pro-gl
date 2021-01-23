@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Assistan\Story;
 
@@ -23,7 +24,7 @@ class UserController extends Controller
 
         if (!empty($keyword)) {
             $user = User::where('email', 'LIKE', "%$keyword%")
-                ->orWhere('password', 'LIKE', "%$keyword%")
+                ->orWhere('name', 'LIKE', "%$keyword%")
                 ->orWhere('profil', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
@@ -55,16 +56,23 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'email' => 'required',
+            'name' => 'required',
+            'email' => 'required',
 			'password' => 'required|confirmed'
 		]);
+
         $requestData = $request->all();
                 if ($request->hasFile('profil')) {
             $requestData['profil'] = $request->file('profil')
                 ->store('uploads', 'public');
         }
+        $requestData['password'] = bcrypt($requestData['password']);
+        $user = User::create($requestData);
 
-        User::create($requestData);
+        if(isset($requestData['root'])){
+            $user->attachRole(Role::whereName('root')->first());
+        }
+
         return redirect('admin/user')->with('flash_message', 'User  Ajouté Avec Succes!');
     }
 

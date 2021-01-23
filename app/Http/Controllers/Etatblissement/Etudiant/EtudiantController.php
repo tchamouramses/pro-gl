@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Etudiant;
 use Illuminate\Http\Request;
 use App\Assistan\Story;
+use App\User;
+use App\Models\Role;
 
 class EtudiantController extends Controller
 {
@@ -34,6 +36,10 @@ class EtudiantController extends Controller
             $etudiant = Etudiant::latest()->paginate($perPage);
         }
         
+        foreach ($etudiant as $item) {
+            # code...
+            $item->user = User::findOrFail($item->utilisateur);
+        }
         $ariane = ['etudiant'];
         return view('admin/etablissement/etudiant.etudiant.index', compact('etudiant','ariane'));
     }
@@ -46,7 +52,8 @@ class EtudiantController extends Controller
     public function create()
     {
         $ariane = ['etudiant','Ajouter'];
-        return view('admin/etablissement/etudiant.etudiant.create',compact('ariane'));
+        $user = User::all();
+        return view('admin/etablissement/etudiant.etudiant.create',compact('ariane','user'));
     }
 
     /**
@@ -68,7 +75,8 @@ class EtudiantController extends Controller
 			'utilisateur' => 'required'
 		]);
         $requestData = $request->all();
-        
+        $user = User::findOrFail($requestData['utilisateur']);
+        $user->attachRole(Role::whereName('etudiant')->first());
         Etudiant::create($requestData);
         return redirect('admin/etudiant/etudiant')->with('flash_message', 'Etudiant  Ajouté Avec Succes!');
     }
@@ -83,8 +91,8 @@ class EtudiantController extends Controller
     public function show($id)
     {
         $etudiant = Etudiant::findOrFail($id);
-
         $ariane = ['etudiant','Details'];
+        $etudiant->user = User::findOrFail($etudiant->utilisateur);
         return view('admin/etablissement/etudiant.etudiant.show', compact('etudiant','ariane'));
     }
 
@@ -99,8 +107,9 @@ class EtudiantController extends Controller
     {
         $etudiant = Etudiant::findOrFail($id);
 
+        $user = User::all();
         $ariane = ['etudiant','Modification'];
-        return view('admin/etablissement/etudiant.etudiant.edit', compact('etudiant','ariane'));
+        return view('admin/etablissement/etudiant.etudiant.edit', compact('etudiant','ariane','user'));
     }
 
     /**
