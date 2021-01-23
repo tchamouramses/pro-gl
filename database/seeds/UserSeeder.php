@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -20,6 +21,9 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('brice1997'),
             ];
         $user = User::create($user);
+
+        $role = Role::whereName('administrateur')->first();
+        $user->attachRole($role);
 
     }
 }

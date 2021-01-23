@@ -86,43 +86,6 @@
         <a href="{{ url('/home')}}" class="nav-link">Acceuil</a>
       </li>
     </ul>
-    @if(null != Auth::user() && (Auth::user()->hasPermission('vente') || Auth::user()->hasRole('administrateur')))
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <ul class="navbar-nav" title="Effectuer une vente">
-      <li class="nav-item">
-        <a class="nav-link" href="#" role="button"><i class="fas fa-cart-plus" style="color: blue;"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ url('/admin/vente/getvue')}}" class="nav-link"  >Vente</a>
-      </li>
-    </ul>
-    @endif
-    @if(null != Auth::user() && (Auth::user()->hasPermission('vommande') || Auth::user()->hasRole('administrateur')))
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <ul class="navbar-nav" title="Effectuer une commande">
-      <li class="nav-item">
-        <a class="nav-link" href="#" role="button"><i class="fas fa-layer-group" style="color: blue;"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ url('/admin/commande/create')}}" class="nav-link"  >Commande</a>
-      </li>
-    </ul>
-    @endif
-    @if(null != Auth::user() && (Auth::user()->hasPermission('stock') || Auth::user()->hasRole('administrateur')))
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <ul class="navbar-nav" title="etat des stocks">
-      <li class="nav-item">
-        <a class="nav-link" href="#" role="button"><i class="fas fa-clipboard-list" style="color: blue;"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ url('/admin/stock')}}" class="nav-link">Stock</a>
-      </li>
-    </ul>
-    @endif
-
-      
-
-
 
 
 
@@ -142,10 +105,6 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ url('/admin/user/profile') }}">Profile &nbsp;&nbsp; <i class="fas fa-user" style="color: blue;" aria-hidden="true"></i></a>
                     <div class="dropdown-divider"></div>
-                    @if(null != Auth::user() && (Auth::user()->hasPermission('historique') || Auth::user()->hasRole('administrateur')))
-                      <a class="dropdown-item" href="{{ url('/admin/historique') }}">Historique &nbsp;&nbsp; <i class="fas fa-pen-alt" style="color: blue;" aria-hidden="true"></i></a>
-                    <div class="dropdown-divider"></div>
-                    @endif
 
                         <a class="dropdown-item" href="{{ url('/logout') }}"
                           onclick="event.preventDefault();
@@ -219,7 +178,7 @@
             </ul>
           </li>
 
-
+@if(Auth::user()->hasPermission('etablissement'))
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cart-plus"></i>
@@ -243,8 +202,9 @@
                 </li>
               </ul>
             </li>
+@endif
 
-            
+@if(Auth::user()->hasPermission('entreprise'))
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cart-plus"></i>
@@ -268,8 +228,10 @@
                 </li>
               </ul>
             </li>
+@endif
 
             
+@if(Auth::user()->hasPermission('etudiant'))
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cart-plus"></i>
@@ -293,8 +255,10 @@
                 </li>
               </ul>
             </li>
-
+@endif
             
+
+@if(Auth::user()->hasPermission('organisme'))
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cart-plus"></i>
@@ -318,8 +282,9 @@
                 </li>
               </ul>
             </li>
-
+@endif
             
+@if(Auth::user()->hasPermission('filiere'))
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cart-plus"></i>
@@ -343,8 +308,9 @@
                 </li>
               </ul>
             </li>
+@endif
 
-            
+@if(Auth::user()->hasPermission('partenariat'))
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cart-plus"></i>
@@ -368,7 +334,8 @@
                 </li>
               </ul>
             </li>
-
+@endif
+@if(Auth::user()->hasPermission('periode-academique'))
             
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
@@ -393,8 +360,9 @@
                 </li>
               </ul>
             </li>
-
+@endif
             
+@if(Auth::user()->hasPermission('group'))
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cart-plus"></i>
@@ -418,8 +386,9 @@
                 </li>
               </ul>
             </li>
-
+@endif
             
+@if(Auth::user()->hasPermission('categorie-donnee'))
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cart-plus"></i>
@@ -443,8 +412,9 @@
                 </li>
               </ul>
             </li>
+@endif
 
-            
+@if(Auth::user()->hasPermission('donnee'))
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cart-plus"></i>
@@ -468,8 +438,9 @@
                 </li>
               </ul>
             </li>
-
+@endif
             
+@if(Auth::user()->hasPermission('stage'))
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cart-plus"></i>
@@ -493,8 +464,9 @@
                 </li>
               </ul>
             </li>
-
+@endif
             
+@if(Auth::user()->hasPermission('postuler'))
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cart-plus"></i>
@@ -518,8 +490,9 @@
                 </li>
               </ul>
             </li>
-
+@endif
             
+@if(Auth::user()->hasPermission('statistique-etablissement'))
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-cart-plus"></i>
@@ -543,7 +516,34 @@
                 </li>
               </ul>
             </li>
+@endif
 
+
+@if(Auth::user()->hasPermission('user'))
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-cart-plus"></i>
+                  <p>
+                       Gestion Utilisateurs
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ url('/admin/user/create') }}" class="nav-link">
+                    <i class="fas fa-dot-circle nav-icon text-info text-info"></i>
+                    <p>Ajout</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ url('admin/user') }}" class="nav-link">
+                    <i class="fas fa-dot-circle nav-icon text-info text-info"></i>
+                    <p>Liste</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+@endif
 
         </ul>
       </li>
