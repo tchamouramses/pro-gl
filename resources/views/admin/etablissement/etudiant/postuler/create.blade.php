@@ -19,12 +19,7 @@
                             </ul>
                         @endif
 
-                        <form method="POST" action="{{ url('/admin/etudiant/postuler') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-
-                            @include ('admin/etablissement/etudiant.postuler.form', ['formMode' => 'create'])
-
-                        </form>
+                        @include ('admin/etablissement/etudiant.postuler.form', ['formMode' => 'create'])
 
                     </div>
                 </div>

@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Stage;
+use App\Models\Entreprise;
 use Illuminate\Http\Request;
 use App\Assistan\Story;
 
@@ -33,6 +34,10 @@ class StageController extends Controller
             $stage = Stage::latest()->paginate($perPage);
         }
 
+        foreach ($stage as $item) {
+            # code...
+            $item->entreprise = Entreprise::findOrFail($item->entreprise);
+        }
 
         
         $ariane = ['stage'];
@@ -47,7 +52,9 @@ class StageController extends Controller
     public function create()
     {
         $ariane = ['stage','Ajouter'];
-        return view('admin/entreprise.stage.create',compact('ariane'));
+
+        $entreprise = Entreprise::all();
+        return view('admin/entreprise.stage.create',compact('ariane','entreprise'));
     }
 
     /**
@@ -60,12 +67,10 @@ class StageController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'date' => 'required',
 			'entreprise' => 'required',
 			'portee' => 'required',
 			'date_debut' => 'required',
-			'date_fin' => 'required',
-			'nom' => 'required'
+			'date_fin' => 'required'
 		]);
         $requestData = $request->all();
                 if ($request->hasFile('fichier_join')) {
@@ -87,9 +92,9 @@ class StageController extends Controller
     public function show($id)
     {
         $stage = Stage::findOrFail($id);
-
+        $stage->entreprise = Entreprise::findOrFail($stage->entreprise);
         $ariane = ['stage','Details'];
-        return view('admin/entreprise.stage.show', compact('stage','ariane'));
+        return view('admin/entreprise.stage.show', compact('stage','ariane','stage'));
     }
 
     /**
@@ -102,9 +107,9 @@ class StageController extends Controller
     public function edit($id)
     {
         $stage = Stage::findOrFail($id);
-
+        $entreprise = Entreprise::all();
         $ariane = ['stage','Modification'];
-        return view('admin/entreprise.stage.edit', compact('stage','ariane'));
+        return view('admin/entreprise.stage.edit', compact('stage','ariane','entreprise'));
     }
 
     /**
@@ -118,12 +123,10 @@ class StageController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-			'date' => 'required',
 			'entreprise' => 'required',
 			'portee' => 'required',
 			'date_debut' => 'required',
-			'date_fin' => 'required',
-			'nom' => 'required'
+			'date_fin' => 'required'
 		]);
         $requestData = $request->all();
                 if ($request->hasFile('fichier_join')) {

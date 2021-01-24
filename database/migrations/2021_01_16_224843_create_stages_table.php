@@ -15,7 +15,6 @@ class CreateStagesTable extends Migration
         Schema::create('stages', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->date('nom')->nullable();
             $table->date('date_fin')->nullable();
             $table->date('date_debut')->nullable();
             $table->string('fichier_join')->nullable();

@@ -1,8 +1,4 @@
-<div class="form-group {{ $errors->has('nom') ? 'has-error' : ''}}">
-    <label for="nom" class="control-label">{{ 'Nom' }}</label>
-    <input class="form-control" name="nom" type="date" id="nom" value="{{ isset($stage->nom) ? $stage->nom : ''}}" required>
-    {!! $errors->first('nom', '<p class="help-block">:message</p>') !!}
-</div>
+
 <div class="form-group {{ $errors->has('date_fin') ? 'has-error' : ''}}">
     <label for="date_fin" class="control-label">{{ 'Date Fin' }}</label>
     <input class="form-control" name="date_fin" type="date" id="date_fin" value="{{ isset($stage->date_fin) ? $stage->date_fin : ''}}" required>
@@ -29,7 +25,12 @@
 </div>
 <div class="form-group {{ $errors->has('entreprise') ? 'has-error' : ''}}">
     <label for="entreprise" class="control-label">{{ 'Entreprise' }}</label>
-    <input class="form-control" name="entreprise" type="number" id="entreprise" value="{{ isset($stage->entreprise) ? $stage->entreprise : ''}}" required>
+    <select class="select2 select2-success form-control" data-dropdown-css-class="select2-success" name="entreprise" required>
+        @foreach($entreprise as $item)
+            <option value="{{$item->id}}" @if(isset($stage->entreprise) && $stage->entreprise === $item->id ) selected @endif>{{$item->nom}} 
+            </option>
+        @endforeach
+    </select>
     {!! $errors->first('entreprise', '<p class="help-block">:message</p>') !!}
 </div>
 

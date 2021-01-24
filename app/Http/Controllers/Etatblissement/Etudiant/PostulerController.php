@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Postuler;
 use Illuminate\Http\Request;
 use App\Assistan\Story;
+use App\Models\Stage;
+use App\Models\Etudiant;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PostulerController extends Controller
 {
@@ -44,7 +48,16 @@ class PostulerController extends Controller
     public function create()
     {
         $ariane = ['postuler','Ajouter'];
-        return view('admin/etablissement/etudiant.postuler.create',compact('ariane'));
+
+
+        $etudiant  = Etudiant::whereUtilisateur(Auth::user()->id)->first()->id;
+        $stage = Postuler::select('stages.*')
+                ->join('stages','stages.id','=','postulers.stage')
+                ->join('etudiants','etudiants.id','=','postulers.etudiant')
+                ->where('etudiants.id', '!=', $etudiant)
+                ->get();
+        return $stage;
+        return view('admin/etablissement/etudiant.postuler.create',compact('ariane','stage'));
     }
 
     /**
@@ -57,19 +70,22 @@ class PostulerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'date' => 'required',
-			'etudiant' => 'required',
-			'stage' => 'required',
-			'statut' => 'required',
 			'piece_jointe' => 'required'
 		]);
-        $requestData = $request->all();
-                if ($request->hasFile('piece_jointe')) {
-            $requestData['piece_jointe'] = $request->file('piece_jointe')
+
+        $postuler = new Postuler();
+
+        if ($request->hasFile('piece_jointe')) {
+            $postuler->piece_jointe = $request->file('piece_jointe')
                 ->store('uploads', 'public');
         }
 
-        Postuler::create($requestData);
+        $postuler->date = Carbon::now();
+        $postuler->etudiant = Etudiant::whereUtilisateur(Auth::user()->id)->first()->id;
+        $postuler->stage = $request->stage;
+        $postuler->statut = 'ATTENTE';
+
+        $postuler->save();
         return redirect('admin/etudiant/postuler')->with('flash_message', 'Postuler  Ajouté Avec Succes!');
     }
 
