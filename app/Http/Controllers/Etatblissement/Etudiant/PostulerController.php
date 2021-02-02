@@ -50,13 +50,17 @@ class PostulerController extends Controller
         $ariane = ['postuler','Ajouter'];
 
 
-        $etudiant  = Etudiant::whereUtilisateur(Auth::user()->id)->first()->id;
-        $stage = Postuler::select('stages.*')
+        $etudiant  = Etudiant::whereUtilisateur(Auth::user()->id)->first();
+        $stage = null;
+        if(isset($etudiant)){
+            $stage = Postuler::select('stages.*')
                 ->join('stages','stages.id','=','postulers.stage')
                 ->join('etudiants','etudiants.id','=','postulers.etudiant')
-                ->where('etudiants.id', '!=', $etudiant)
+                ->where('etudiants.id', '!=', $etudiant->id)
                 ->get();
-        return $stage;
+        }
+        
+
         return view('admin/etablissement/etudiant.postuler.create',compact('ariane','stage'));
     }
 
