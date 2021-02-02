@@ -17,7 +17,7 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <tbody>
-                                    <tr><th> Date </th><td> {{ $postuler->date }} </td></tr><tr><th> Piece Jointe </th><td> {{ $postuler->piece_jointe }} </td></tr><tr><th> Statut </th><td> {{ $postuler->statut }} </td></tr><tr><th> Etudiant </th><td> {{ $postuler->etudiant }} </td></tr><tr><th> Stage </th><td> {{ $postuler->stage }} </td></tr>
+                                    <tr><th> Date </th><td> {{ $postuler->date }} </td></tr><tr><th> Piece Jointe </th><td><a href="{{ url('storage/'.$postuler->piece_jointe) }}"><i class="fa fa-eye" aria-hidden="true"></i></button></a>  </td></tr><tr><th> Statut </th><td> {{ $postuler->statut }} </td></tr><tr><th> Stage </th><td> {{ $postuler->stage }} </td></tr>
                                 </tbody>
                             </table>
                         </div>

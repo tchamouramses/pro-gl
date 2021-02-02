@@ -71,7 +71,7 @@ class EtudiantController extends Controller
 			'niveau' => 'required',
 			'date_nais' => 'required',
 			'lieu_nais' => 'required',
-			'matricule' => 'required',
+			'matricule' => 'required|unique',
 			'utilisateur' => 'required'
 		]);
         $requestData = $request->all();

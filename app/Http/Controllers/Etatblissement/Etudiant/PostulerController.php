@@ -24,15 +24,10 @@ class PostulerController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 10;
-
-        if (!empty($keyword)) {
-            $postuler = Postuler::where('date', 'LIKE', "%$keyword%")
-                ->orWhere('piece_jointe', 'LIKE', "%$keyword%")
-                ->orWhere('statut', 'LIKE', "%$keyword%")
-                ->orWhere('etudiant', 'LIKE', "%$keyword%")
-                ->orWhere('stage', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
-        } else {
+        $user =Etudiant::whereUtilisateur(Auth::user()->id)->first();   
+        if(isset($user)){
+            $postuler = Postuler::where('etudiant','=',$user->id)->latest()->paginate($perPage);
+        }else{
             $postuler = Postuler::latest()->paginate($perPage);
         }
         
@@ -51,7 +46,6 @@ class PostulerController extends Controller
 
 
         $etudiant  = Etudiant::whereUtilisateur(Auth::user()->id)->first();
-        $stage = null;
         if(isset($etudiant)){
             $stage = Postuler::select('stages.*')
                 ->join('stages','stages.id','=','postulers.stage')

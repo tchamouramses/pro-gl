@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Stage;
 use App\Models\Entreprise;
+use App\Models\Etudiant;
+use App\Models\Postuler;
 use Illuminate\Http\Request;
 use App\Assistan\Story;
 
@@ -93,8 +95,15 @@ class StageController extends Controller
     {
         $stage = Stage::findOrFail($id);
         $stage->entreprise = Entreprise::findOrFail($stage->entreprise);
+        $postuler = Postuler::whereStage($id)->get();
+        foreach ($postuler as $item) {
+            # code...
+            $item->etudiant = Etudiant::findOrFail($item->etudiant);
+        }
+
+        // return $postuler;
         $ariane = ['stage','Details'];
-        return view('admin/entreprise.stage.show', compact('stage','ariane','stage'));
+        return view('admin/entreprise.stage.show', compact('stage','ariane','stage','postuler'));
     }
 
     /**

@@ -14,13 +14,74 @@
                         <br/>
                         <br/>
 
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tbody>
-                                    <tr><th> Nom </th><td> {{ $stage->nom }} </td></tr><tr><th> Date Fin </th><td> {{ $stage->date_fin }} </td></tr><tr><th> Date Debut </th><td> {{ $stage->date_debut }} </td></tr><tr><th> Fichier Join </th><td> {{ $stage->fichier_join }} </td></tr><tr><th> Portee </th><td> {{ $stage->portee }} </td></tr><tr><th> Entreprise </th><td> {{ $stage->entreprise }} </td></tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-dark">
+                                        <thead>
+                                            <tr>
+                                                <th>Nom</th><th>Date Fin</th><th>Date Debut</th><th> Fichier Join </th><th>Portee</th><th>Entreprise</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td> {{ $stage->nom }} </td>
+                                                <td> {{ $stage->date_fin }} </td>
+                                                <td>{{ $stage->date_debut }}</td>
+                                                <td> <a href="{{url('storage/'.$stage->fichier_join)}}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                                                <td> {{ $stage->portee }} </td><td> {{ $stage->entreprise->nom }} </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <br>
+                            <br>
+                            <br>
+                            <div class="col-md-12" align="center">
+                                <h4 align="center" style="color: blue;">Postulant</h4>
+                            </div>
+                            <br>
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th><th>Piece Jointe</th><th> Status</th><th>Etudiant</th><th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @if(isset($postuler) && !empty($postuler))
+                                        @foreach($postuler as $item)
+                                            <tr>
+                                                <td>{{ $item->date }}</td>
+                                                <td><a href="{{url('storage/'.$item->piece_jointe)}}"><i class="fa fa-eye" aria-hidden="true"></ i></a></td>
+                                                <td>{{ $item->statut }}</td>
+                                                <td>{{ $item->etudiant->nom }}</td>
+                                                <td>
+                                                    <div class="row col-md-12">
+                                                        <div class="col-md-6">
+                                                            <a href="" class="btn btn-success">Valider</a>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <a href="" class="btn btn-danger">Refuser</a>                                     
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="5">
+                                                    AUCUNE DEMANDE SOUMISE
+                                                </td>
+                                            </tr>
+                                        @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
                     </div>
                 </div>
