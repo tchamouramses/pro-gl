@@ -55,7 +55,7 @@
                                         @foreach($postuler as $item)
                                             <tr>
                                                 <td>{{ $item->date }}</td>
-                                                <td><a href="{{url('storage/'.$item->piece_jointe)}}"><i class="fa fa-eye" aria-hidden="true"></ i></a></td>
+                                                <td><a href="{{url('storage/'.$item->piece_jointe)}}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                                                 <td>{{ $item->statut }}</td>
                                                 <td>{{ $item->etudiant->nom }}</td>
                                                 <td>

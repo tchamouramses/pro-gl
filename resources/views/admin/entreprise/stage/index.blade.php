@@ -35,7 +35,7 @@
                                 <tbody>
                                 @foreach($stage as $item)
                                     <tr>
-                                        <td>{{ $item->nom }}</td><td>{{ $item->date_fin }}</td><td>{{ $item->date_debut }}</td><td>{{ $item->fichier_join }}</td><td>{{ $item->portee }}</td><td>{{ $item->entreprise->nom }}</td>
+                                        <td>{{ $item->nom }}</td><td>{{ $item->date_fin }}</td><td>{{ $item->date_debut }}</td><td><a href="{{url('storage/'.$item->fichier_join)}}"><i class="fa fa-eye" aria-hidden="true"></i></a></td><td>{{ $item->portee }}</td><td>{{ $item->entreprise->nom }}</td>
                                         <td>
                                             <a href="{{ url('/admin/stage/' . $item->id) }}" title="Details Stage"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                             <a href="{{ url('/admin/stage/' . $item->id . '/edit') }}" title="Modifier Stage"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
